@@ -95,7 +95,33 @@ fun findMinAndMax(list: List<Int>): Pair<Int, Int> {
 *
 * */
 fun closest(point: Point, vararg points: Point): Point {
-    val x = 0.0
-    val y = 0.0
-    return Point(x,y)
+    var menorD = Double.MAX_VALUE
+    var temporal = 0.0
+    var p = Point(0.0,0.0)
+    points.forEach {
+        temporal = distance(point, it)
+        if(temporal < menorD) {menorD = temporal; p = it}
+    }
+    return p
+}
+
+fun main(){
+    val p = Point(5.0,2.0)
+    val p1 = Point(7.2,8.5)
+    val p2 = Point(9.3,10.4)
+/*
+    var distancia = distance(p,p1)
+    println(distancia)
+    distancia = distance(p,p2)
+    println(distancia)
+
+    val pclose = closest(p, p1, p2)
+    println(pclose)
+
+
+
+    println(imc(50.50,1.68))
+
+ */
+    println(secondDegreeEquation(1.0,8.0,16.0))
 }
