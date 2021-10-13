@@ -43,26 +43,36 @@ internal class MainKtTest {
     }
 
     @Test
+    @DisplayName("Calculo imc")
     fun imc() {
         assertEquals(17.89, cat.copernic.rgarridos.imc(50.50, 1.68), 1e-2)
     }
 
+    @ParameterizedTest
+    @CsvSource("85.2,1.74,28.1", "45.6,1.56,18.7", "200.50,1.89,56.1")
+    fun `imc parameterized`(a: Double, b: Double, c: Double) {
+        assertEquals(c, cat.copernic.rgarridos.imc(a, b),1e-1)
+    }
     @Test
+    @DisplayName("Ecuación de segundo grado")
     fun secondDegreeEquation() {
         assertEquals(Pair(-4.0, -4.0), cat.copernic.rgarridos.secondDegreeEquation(1.0, 8.0, 16.0))
     }
 
     @Test
+    @DisplayName("Distancia entre dos points")
     fun distance() {
         assertEquals(9.43, cat.copernic.rgarridos.distance(p, p2), 1e-2)
     }
 
     @Test
+    @DisplayName("Pendiente de una recta")
     fun slope() {
         assertEquals(2.95, cat.copernic.rgarridos.slope(p, p1), 1e-2)
     }
 
     @Test
+    @DisplayName("Punto medio")
     fun midPoint() {
         assertEquals(p0, cat.copernic.rgarridos.midPoint(p1, p2))
     }
@@ -74,6 +84,16 @@ internal class MainKtTest {
             cat.copernic.rgarridos.displayScore(4.86)
         }
         assertEquals("No supera", output.trim())
+    }
+    @Test
+    @DisplayName("Scores")
+    @ParameterizedTest
+    @ValueSource(doubles = [7.0, 7.5, 8.9])
+    fun `displayScore for valueSource`(n: Double) {
+        val output = tapSystemOut {
+            cat.copernic.rgarridos.displayScore(n)
+        }
+        assertEquals("Notable", output.trim())
     }
 
     @Test
