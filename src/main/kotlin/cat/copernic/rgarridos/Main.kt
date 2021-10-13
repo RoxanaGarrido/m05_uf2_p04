@@ -122,6 +122,16 @@ fun main(){
 
     println(imc(50.50,1.68))
 
- */
+
     println(secondDegreeEquation(1.0,8.0,16.0))
+
+
+    println(distance(p,p2))
+    println(slope(p, p1))
+    println(midPoint(p1, p2))
+
+ */
+    val roundedScore = floor(4.868 * 100) / 100
+    println(roundedScore)
+    println(displayScore(4.868))
 }
