@@ -33,21 +33,30 @@ fun secondDegreeEquation(a: Double, b: Double, c: Double): Pair<Double, Double> 
 *
 * distance = √[(x2 – x1)^2 +(y2 – y1)^2]
 * */
-fun distance(p1: Point, p2: Point): Double = TODO("Pending")
+fun distance(p1: Point, p2: Point): Double {
+    return Math.sqrt(Math.pow((p2.x - p1.x), 2.0) + Math.pow((p2.y - p1.y), 2.0))
+}
 
 /*
 * Cáculo de la pendiente de una recta
 *
 * slope = (y2 – y1) / (x2 – x1)
 * */
-fun slope(p1: Point, p2: Point): Double = TODO("Pending")
+fun slope(p1: Point, p2: Point): Double {
+
+   return (p2.y - p1.y) / (p2.x - p1.x)
+}
 
 /*
 * Cálculo del punto medio de una recta
 *
 * midpoint = ((x1+x2)/2, (y1+y2)/2)
 * */
-fun midPoint(p1: Point, p2: Point): Point = TODO("Pending")
+fun midPoint(p1: Point, p2: Point): Point {
+    val x: Double = ((p1.x + p2.x) / 2)
+    val y: Double = ((p1.y + p2.y) / 2)
+    return Point(x, y)
+}
 
 fun displayScore(score: Double) {
     val roundedScore = floor(score * 100) / 100
@@ -67,11 +76,26 @@ fun displayScore(score: Double) {
 * [2,3,1,4,7,6,5] = (1,7)
 * [] = IllegalArgumentException
 * */
-fun findMinAndMax(list: List<Int>): Pair<Int, Int> = TODO("Pending")
+fun findMinAndMax(list: List<Int>): Pair<Int, Int> {
+    val menor = 0
+    val mayor = 0
+    if(list.isEmpty()) throw IllegalArgumentException ("Void List!")
+    else {
+        val listOrdered = list.sorted()
+        val listOrderedDes = list.sortedDescending()
+        val menor = listOrdered[0]
+        val mayor = listOrderedDes[0]
+    }
+    return Pair(menor, mayor)
+}
 
 /*
 *
 * Cálculo del punto más cercano a point. points es una lista de tipo Point
 *
 * */
-fun closest(point: Point, vararg points: Point): Point = TODO("Pending")
+fun closest(point: Point, vararg points: Point): Point {
+    val x = 0.0
+    val y = 0.0
+    return Point(x,y)
+}
