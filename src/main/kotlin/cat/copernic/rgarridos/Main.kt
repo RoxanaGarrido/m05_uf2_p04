@@ -9,7 +9,7 @@ import kotlin.math.*
  */
 
 data class Point(val x: Double, val y: Double)
-
+fun Double.roundDecimal(digit: Int) = "%.${digit}f".format(this)
 /*
 * Índice de masa corporal
 *
@@ -44,7 +44,7 @@ fun distance(p1: Point, p2: Point): Double {
 * */
 fun slope(p1: Point, p2: Point): Double {
 
-   return (p2.y - p1.y) / (p2.x - p1.x)
+    return (p2.y - p1.y) / (p2.x - p1.x)
 }
 
 /*
@@ -77,14 +77,14 @@ fun displayScore(score: Double) {
 * [] = IllegalArgumentException
 * */
 fun findMinAndMax(list: List<Int>): Pair<Int, Int> {
-    val menor = 0
-    val mayor = 0
+    var menor = 0
+    var mayor = 0
     if(list.isEmpty()) throw IllegalArgumentException ("Void List!")
     else {
         val listOrdered = list.sorted()
         val listOrderedDes = list.sortedDescending()
-        val menor = listOrdered[0]
-        val mayor = listOrderedDes[0]
+        menor = listOrdered[0]
+        mayor = listOrderedDes[0]
     }
     return Pair(menor, mayor)
 }
@@ -130,8 +130,30 @@ fun main(){
     println(slope(p, p1))
     println(midPoint(p1, p2))
 
- */
+
     val roundedScore = floor(4.868 * 100) / 100
     println(roundedScore)
     println(displayScore(4.868))
+
+
+    val l1 = listOf(8, 12, 5, 4)
+    val l2 = listOf(20, 89, 35, 2)
+    val l3 = listOf(98,12,3,4,40)
+    println(findMinAndMax(l1))
+    println(findMinAndMax(l2))
+    println(findMinAndMax(l3))
+
+    val lsorted = l1.sorted()
+    println(lsorted)
+    println(lsorted[0])
+
+ */
+
+    val a = Point(5.0,8.2)
+    val b = Point(2.4,7.2)
+    val c = Point(4.3, 5.6)
+
+    println(slope(a, b))
+    println(slope(a, c))
+    println(slope(b, c))
 }

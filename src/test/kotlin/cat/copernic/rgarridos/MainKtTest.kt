@@ -9,7 +9,9 @@ import org.junit.jupiter.params.provider.MethodSource
 import org.junit.jupiter.params.provider.ValueSource
 import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
 import org.junit.jupiter.api.assertTimeout
+import org.junit.jupiter.params.provider.Arguments
 import java.time.Duration
+import java.util.stream.Stream
 
 internal class MainKtTest {
     val p = Point(5.0, 2.0)
@@ -29,6 +31,27 @@ internal class MainKtTest {
         @JvmStatic
         fun end() {
             println("Final tests... ***")
+        }
+
+        @JvmStatic
+        fun provideParametersForMinMax(): Stream<Arguments?>? {
+            return Stream.of(
+                Arguments.of(listOf(8, 12, 5, 4), Pair(4, 12)),
+                Arguments.of(listOf(20, 89, 35, 2), Pair(2, 89)),
+                Arguments.of(listOf(98,12,3,4,40), Pair(3, 98)),
+            )
+        }
+
+        @JvmStatic
+        fun provideParametersSlope(): Stream<Arguments?>? {
+            val a = Point(5.0,8.2)
+            val b = Point(2.4,7.2)
+            val c = Point(4.3, 5.6)
+            return Stream.of(
+                Arguments.of(a, b, 0.38),
+                Arguments.of(a, c, 3.71),
+                Arguments.of(b, c, -0.84),
+            )
         }
     }
 
@@ -60,6 +83,15 @@ internal class MainKtTest {
     }
 
     @Test
+    fun `ecuación with timeout`(){
+       val result = assertTimeout(
+            Duration.ofMillis(8)) {
+            cat.copernic.rgarridos.secondDegreeEquation(3.0,-30.0,-12.0)
+        }
+        assertEquals(Pair(10.385164807134503, -0.38516480713450346), result)
+    }
+
+    @Test
     @DisplayName("Distancia entre dos points")
     fun distance() {
         assertEquals(9.43, cat.copernic.rgarridos.distance(p, p2), 1e-2)
@@ -69,6 +101,12 @@ internal class MainKtTest {
     @DisplayName("Pendiente de una recta")
     fun slope() {
         assertEquals(2.95, cat.copernic.rgarridos.slope(p, p1), 1e-2)
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideParametersSlope")
+    fun pendiente(p1: Point, p2: Point, d: Double){
+        assertEquals(d, cat.copernic.rgarridos.slope(p1, p2), 1e-2)
     }
 
     @Test
@@ -85,8 +123,7 @@ internal class MainKtTest {
         }
         assertEquals("No supera", output.trim())
     }
-    @Test
-    @DisplayName("Scores")
+
     @ParameterizedTest
     @ValueSource(doubles = [7.0, 7.5, 8.9])
     fun `displayScore for valueSource`(n: Double) {
@@ -102,13 +139,12 @@ internal class MainKtTest {
         assertThrows<IllegalArgumentException> { cat.copernic.rgarridos.findMinAndMax(list) }
     }
 
-    /*
     @ParameterizedTest
-    @CsvSource
-    @DisplayName
-    @ValueSource
-    @MethodSource
-*/
+    @MethodSource("provideParametersForMinMax")
+    fun `findMinAndMax with methodSource`(list: List<Int>, p: Pair<Int, Int>){
+        assertEquals(p, cat.copernic.rgarridos.findMinAndMax(list))
+    }
+
     @Test
     @DisplayName("Closets Point")
     fun `closest for timeout`() {
@@ -119,3 +155,4 @@ internal class MainKtTest {
         assertEquals(p1, cat.copernic.rgarridos.closest(p, p1, p2))
     }
 }
+
